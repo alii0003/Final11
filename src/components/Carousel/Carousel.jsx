@@ -1,0 +1,170 @@
+import React from "react";
+import {
+  Box,
+  // IconButton,
+  useBreakpointValue,
+  Stack,
+  Heading,
+  Text,
+  Container,
+  Button,
+  Flex,
+  useMediaQuery,
+} from "@chakra-ui/react";
+// import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+import Slider from "react-slick";
+import { Link } from "react-router-dom";
+
+const settings = {
+  dots: true,
+  arrows: false,
+  fade: true,
+  infinite: true,
+  autoplay: true,
+  speed: 500,
+  autoplaySpeed: 5000,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+};
+
+export default function Carousel() {
+  const [slider, setSlider] = React.useState(null);
+  const [isLargerThan] = useMediaQuery("(min-width: 468px)");
+  const top = useBreakpointValue({ base: "90%", md: "50%" });
+  const side = useBreakpointValue({ base: "30%", md: "40px" });
+  const cards = [
+    {
+      id: 1000,
+      title: " Alış-Veriş İndi Daha Rahat!",
+      text: "Burada Kişi və Qadın Geyimləri,Həmçinin İdman dəstləri və Ayaqqabılar mövcuddur!",
+      image:
+        "https://media.istockphoto.com/id/1053320828/photo/black-luxury-fabric-background-with-copy-space.jpg?b=1&s=170667a&w=0&k=20&c=7b16Jg3PSLDTwEg3OjNYu-KNoqq5oGxdPKNLhXazMiI=",
+    },
+  ];
+
+  return (
+    <Box
+      position={"relative"}
+      height={"600px"}
+      width={"full"}
+      overflow={"hidden"}
+    >
+      {/* CSS files for react-slick */}
+      <link
+        rel="stylesheet"
+        type="text/css"
+        charSet="UTF-8"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
+      />
+      <link
+        rel="stylesheet"
+        type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
+      />
+      {/* Left Icon */}
+      {/* <IconButton
+        aria-label="left-arrow"
+        variant="ghost"
+        position="absolute"
+        left={side}
+        top={top}
+        transform={"translate(0%, -50%)"}
+        zIndex={2}
+        onClick={() => slider?.slickPrev()}
+      >
+        <BiLeftArrowAlt size="40px" />
+      </IconButton> */}
+      {/* Right Icon */}
+      {/* <IconButton
+        aria-label="right-arrow"
+        variant="ghost"
+        position="absolute"
+        right={side}
+        top={top}
+        transform={"translate(0%, -50%)"}
+        zIndex={2}
+        onClick={() => slider?.slickNext()}
+      >
+        <BiRightArrowAlt size="40px" />
+      </IconButton> */}
+      {/* Slider */}
+      <Slider {...settings} ref={(slider) => setSlider(slider)}>
+        {cards.map((card) => (
+          <Box
+            key={card.id}
+            height={"6xl"}
+            color="black"
+            position="relative"
+            backgroundPosition="center"
+            backgroundRepeat="no-repeat"
+            backgroundSize="cover"
+            // backgroundImage="linear-gradient(teal,skyblue,royalblue)"
+            background="url(https://img.pik.com/-photo/front-view-cyber-monday-shopping-cart-with-bags-copy-space_23-2148657638.jpg?w=1380&t=st=1664900415~exp=1664901015~hmac=89c39369bd2b9d5caa08a3b57e7c2ff809dbaea870971c47018c09ddb72496b9) center/cover no-repeat"
+          >
+            {/* This is the block if we need to change, to customize the caption */}
+            <Container
+              size="container.lg"
+              height="600px"
+              m="auto"
+              position="relative"
+            >
+              <Stack
+                spacing={6}
+                w={"full"}
+                maxW={"lg"}
+                position="absolute"
+                top="50%"
+                transform="translate(0, -50%)"
+              >
+                <Heading fontSize={{ base: "2xl", md: "4xl", lg: "5xl" }}>
+                  {card.title}
+                </Heading>
+                <Text fontSize={["sm", "md", "lg", "xl"]} color="">
+                  {card.text}
+                </Text>
+                <Flex gap={isLargerThan ? "2rem" : "1rem"} justify={"center"}>
+                  <Button
+                    fontSize={["xs", "sm", "md", "lg", "xl"]}
+                    bg="black"
+                    color="whitesmoke"
+                    _hover={{
+                      border: "1px solid black",
+                      background: "none",
+                      color: "blue",
+                    }}
+                  >
+                    <Link to="/men">Kişi Geyimləri </Link>
+                  </Button>
+                  <Button
+                    fontSize={["10px", "sm", "md", "lg"]}
+                    bg="black"
+                    color="whitesmoke"
+                    _hover={{
+                      border: "1px solid black",
+                      background: "none",
+                      color: "blue",
+                    }}
+                  >
+                    <Link to="/women">Qadın Geyimləri </Link>
+                  </Button>
+                  <Button
+                    fontSize={["10px", "sm", "md", "lg"]}
+                    bg="black"
+                    color="whitesmoke"
+                    _hover={{
+                      border: "1px solid black",
+                      background: "none",
+                      color: "blue",
+                    }}
+                  >
+                    <Link to="/shoes">İdman Dəstləri </Link>
+                  </Button>
+                </Flex>
+              </Stack>
+            </Container>
+          </Box>
+        ))}
+      </Slider>
+    </Box>
+  );
+}
